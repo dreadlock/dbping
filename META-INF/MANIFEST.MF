@@ -1,0 +1,4 @@
+Main-Class: com.main.Main
+Class-path: ojdbc6.jar
+
+
