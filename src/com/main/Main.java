@@ -11,7 +11,7 @@ public class Main {
         if(args.length != 3) {
             System.out.println(USAGE);
         } else {
-            System.out.println(connect(args[0], args[1], args[2]));
+            System.exit(connect(args[0], args[1], args[2]));
         }
     }
 
