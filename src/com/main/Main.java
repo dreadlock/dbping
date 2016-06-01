@@ -1,17 +1,19 @@
 package com.main;
 
+import java.io.Console;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Main {
 
-    private static final String USAGE = "URL||USER||PASS";
+    private static final String USAGE = "java -jar dbping.jar <jdbc:oracle:thin:@myhost:1521:orcl> <USER>";
 
     public static void main(String[] args) throws Exception {
-        if(args.length != 3) {
+        if(args.length != 2) {
             System.out.println(USAGE);
         } else {
-            System.exit(connect(args[0], args[1], args[2]));
+            System.exit(connect(args[0], args[1], password()));
         }
     }
 
@@ -20,9 +22,21 @@ public class Main {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection connection = DriverManager.getConnection(url, user, pass);
             connection.close();
+            System.out.println("OK");
             return 0;
-        } catch(Throwable t) {
+        } catch(Exception e) {
+            e.printStackTrace();
             return 1;
         }
+    }
+    public static String password() {
+        Console console = System.console();
+        if (console == null) {
+            System.out.println("Couldn't get Console instance");
+            System.exit(0);
+        }
+        char passwordArray[] = console.readPassword("Enter your secret password: ");
+        //console.printf("Password entered was: %s%n", new String(passwordArray));
+        return new String(passwordArray);
     }
 }
