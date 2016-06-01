@@ -7,7 +7,8 @@ import java.sql.DriverManager;
 
 public class Main {
 
-    private static final String USAGE = "java -jar dbping.jar <jdbc:oracle:thin:@myhost:1521:orcl> <USER>";
+    private static final String USAGE = 
+	"java -jar dbping.jar <jdbc:oracle:thin:@myhost:1521:orcl> <USER>";
 
     public static void main(String[] args) throws Exception {
         if(args.length != 2) {
@@ -34,9 +35,17 @@ public class Main {
         if (console == null) {
             System.out.println("Couldn't get Console instance");
             System.exit(0);
+
         }
-        char passwordArray[] = console.readPassword("Enter your secret password: ");
+
+        String pw1 = new String(console.readPassword("Enter your secret password: "));
+        String pw2 = new String(console.readPassword("Enter your secret password again: "));
+	
+	if (!pw1.equals(pw2)) {
+            System.out.println("Passwords did not match. Exit.");
+            System.exit(1);
+	}
         //console.printf("Password entered was: %s%n", new String(passwordArray));
-        return new String(passwordArray);
+        return pw1;
     }
 }
