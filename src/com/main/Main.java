@@ -45,7 +45,7 @@ public class Main {
             System.out.println("Passwords did not match. Exit.");
             System.exit(1);
 	}
-        //console.printf("Password entered was: %s%n", new String(passwordArray));
+        //console.printf("Password entered was: %s%n", pw1);
         return pw1;
     }
 }
